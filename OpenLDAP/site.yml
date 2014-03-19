@@ -1,0 +1,13 @@
+--- 
+    
+  - hosts: openldap_servers:children
+    roles:
+      - common
+          
+  - hosts: openldap_masters
+    roles:
+      - openldap_masters
+      
+  - hosts: openldap_clients
+    roles:
+      - openldap_clients

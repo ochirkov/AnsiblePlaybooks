@@ -1,0 +1,10 @@
+[openldap_masters]
+ldapm1
+
+[openldap_clients]
+elasticsearch
+ldaps1
+
+[openldap_servers:children]
+openldap_masters
+openldap_clients

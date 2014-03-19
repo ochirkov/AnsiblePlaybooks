@@ -1,0 +1,8 @@
+base {{ ldap_suffix }}
+
+uri ldap://{{ hostvars['ldapm1'].ansible_fqdn }}
+
+ldap_version 3
+rootbinddn {{ ldap_bind_user }}
+pam_password clear
+

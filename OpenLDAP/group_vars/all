@@ -1,0 +1,4 @@
+# Common vars for both masters and slaves ldap servers
+
+domain_name: example.com  
+ldap_suffix: dc=example,dc=com

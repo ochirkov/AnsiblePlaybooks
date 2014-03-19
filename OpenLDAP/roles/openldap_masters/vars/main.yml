@@ -1,0 +1,9 @@
+ldap_work_dir: /etc/ldap
+ldap_work_dir_suffix: slapd.d
+ldap_db_dir: /var/lib/ldap
+ldap_users_db_admin: cn=manager,ou=System,{{ ldap_suffix }}
+SSHA_admin_passwd: '{SSHA}JWXIoknLcIVBjbbPCwYSRf1cLU8KT9zh' 
+lapd_operations_dir: /var/run/slapd
+ldap_schema_dir: /etc/ldap/schema
+ldap_modules_path: /usr/lib/ldap
+

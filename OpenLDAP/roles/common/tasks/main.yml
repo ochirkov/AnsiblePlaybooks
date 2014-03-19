@@ -1,0 +1,6 @@
+---
+  
+# The  playbook for common tasks
+                          
+- name: Copy hosts file to all machines
+  template: src=etc/hosts.j2 dest=/etc/hosts

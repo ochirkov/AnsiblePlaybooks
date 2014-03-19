@@ -1,0 +1,48 @@
+---
+
+- name: Install needed packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - slapd
+    - ldap-utils
+    
+- name: Stop slapd
+  service: name=slapd state=stopped
+  
+- name: Clean dirs
+  shell: rm -rf {{ item }}/*
+  with_items:
+    - $ldap_work_dir/$ldap_work_dir_suffix
+    - $ldap_db_dir 
+      
+- name: Copy initial ldif to masters
+  template: src=initial_ldif.j2 dest={{ ldap_work_dir }}/initial.ldif
+  
+- name: Copy initial_users_db ldif to masters
+  template: src=initila_userdb_ldif.j2 dest={{ ldap_work_dir }}/initial_users_db.ldif
+  
+- name: Create users_db dir
+  file: path={{ ldap_db_dir }}/{{ ldap_suffix }} owner=openldap group=openldap state=directory mode=0755
+  
+- name: Copy DB_CONFIG
+  template: src=DB_CONFIG.j2 dest={{ ldap_db_dir }}/{{ ldap_suffix }}/DB_CONFIG owner=openldap group=openldap
+  
+- name: Copy slapd_defaults conf
+  template: src=default_conf.j2 dest=/etc/default/slapd  
+
+- name: Init DIT
+  shell: /usr/sbin/slapadd -n 0 -F {{ ldap_work_dir }}/{{ ldap_work_dir_suffix }} -l {{ ldap_work_dir }}/initial.ldif
+
+- name: Init users_db  
+  shell: /usr/sbin/slapadd -F {{ ldap_work_dir }}/{{ ldap_work_dir_suffix }} -l {{ ldap_work_dir }}/initial_users_db.ldif
+
+- name: Set perms to work dirs
+  file: path={{ item }} owner=openldap group=openldap state=directory recurse=yes
+  with_items:
+    - $ldap_work_dir
+    - $ldap_db_dir
+    
+- name: Start slapd
+  service: name=slapd state=started
+  
+  

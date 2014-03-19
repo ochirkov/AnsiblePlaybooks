@@ -1,0 +1,29 @@
+---
+  
+- name: Install packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - libpam-ldap
+    - libnss-ldap
+    - nscd
+    
+- name: Copy ldap secret
+  template: src=ldap_secret.j2 dest={{ ldap_nss_conf_path }}/ldap.secret   
+
+- name: Copy nss conf
+  template: src=ldap_nss_conf.j2 dest={{ ldap_nss_conf_path }}/ldap.conf 
+  
+- name: Copy ldap general conf
+  template: src=ldap_conf_main.j2 dest={{ ldap_work_dir }}/ldap.conf
+  
+- name: Copy pam conf
+  template: src=pam_update_conf.j2 dest={{ pam_configs_path }}/ldap
+  
+- name: Copy nsswitch
+  template: src=nsswitch.j2 dest={{ ldap_nss_conf_path }}/nsswitch
+
+- name: Export debian_frontend and update pam
+  shell: export DEBIAN_FRONTEND=noninteractive && pam-auth-update
+    
+- name: Restart nscd
+  service: name=nscd state=restarted     

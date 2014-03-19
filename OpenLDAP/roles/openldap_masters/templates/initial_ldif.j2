@@ -1,0 +1,47 @@
+dn: cn=config
+objectClass: olcGlobal
+cn: config
+olcArgsFile: {{ lapd_operations_dir }}/slapd.args
+olcPidFile: {{ lapd_operations_dir }}/slapd.pid
+
+dn: cn=module{0},cn=config
+objectClass: olcModuleList
+cn: module{0}
+olcModuleLoad: {0}back_hdb
+olcModulePath: {{ ldap_modules_path }}
+
+dn: cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: schema
+
+include: file://{{ ldap_schema_dir }}/core.ldif
+include: file://{{ ldap_schema_dir }}/cosine.ldif
+include: file://{{ ldap_schema_dir }}/inetorgperson.ldif
+include: file://{{ ldap_schema_dir }}/misc.ldif
+include: file://{{ ldap_schema_dir }}/nis.ldif
+
+dn: olcDatabase={0}config,cn=config
+objectClass: olcDatabaseConfig
+olcDatabase: {0}config
+olcRootPW: {{ SSHA_admin_passwd }}
+
+dn: olcDatabase={1}hdb,cn=config
+objectClass: olcHdbConfig
+objectClass: olcDatabaseConfig
+olcDatabase: {1}hdb
+olcDbDirectory: {{ ldap_db_dir }}/{{ ldap_suffix }}
+olcAccess: {0}to * by dn="{{ ldap_users_db_admin }}" read by self write by anonymous auth
+olcDbCacheFree: 5
+olcDbCacheSize: 2000
+olcDbCheckpoint: 1024 30
+olcDbIDLcacheSize: 6000
+olcDbIndex: entryCSN eq
+olcDbIndex: entryUUID eq
+olcDbIndex: objectClass eq
+olcDbIndex: cn eq,sub,pres,approx
+olcDbNoSync: TRUE
+olcRootDN: {{ ldap_users_db_admin }}
+olcRootPW: {{ SSHA_admin_passwd }}
+olcSuffix: {{ ldap_suffix }}
+
+

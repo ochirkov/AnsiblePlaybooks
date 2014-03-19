@@ -1,0 +1,4 @@
+pam_configs_path: /usr/share/pam-configs
+ldap_nss_conf_path: /etc
+ldap_work_dir: /etc/ldap
+ldap_bind_user: cn=manager,ou=System,dc=example,dc=com

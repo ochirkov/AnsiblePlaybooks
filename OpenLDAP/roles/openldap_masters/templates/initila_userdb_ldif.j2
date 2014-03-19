@@ -1,0 +1,31 @@
+dn: {{ ldap_suffix }}
+objectclass: dcObject
+objectclass: organization
+o: My Example
+dc: example
+
+dn: ou=users,{{ ldap_suffix }}
+objectclass: organizationalUnit
+ou: users
+
+dn: ou=groups,{{ ldap_suffix }}
+objectclass: organizationalUnit
+ou: groups
+
+dn: cn=linuxusers,ou=groups,{{ ldap_suffix }}
+objectClass: posixGroup
+cn: ldapusers
+gidNumber: 4000
+
+dn: uid=o.chirkov,ou=users,{{ ldap_suffix }}
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: shadowAccount
+cn: Chirkov
+sn: Oleksandr
+gidNumber: 4000
+uidNumber: 4000
+uid: o.chirkov
+homeDirectory: /home/o.chirkov
+loginShell: /bin/bash
+userPassword: Metallica21
