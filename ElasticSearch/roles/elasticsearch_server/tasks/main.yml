@@ -1,0 +1,16 @@
+---
+
+- name: Add local yum repo with needed RPMs
+  template: src=aether_repo.j2 dest={{ local_yum_repo_path }}/aether.repo
+
+- name: Install packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - java-1.7.0-openjdk.x86_64
+    - elasticsearch.noarch
+
+- name: Change es config from default to needed
+  template: src=es_conf.j2 dest={{ es_conf_path }}/elasticsearch.yml
+    
+- name: Restart elasticsearch
+  service: name=elasticsearch state=restarted

@@ -1,0 +1,12 @@
+cluster.name: avid_es_cluster
+node.name: "{{ ansible_fqdn }}"
+node.master: true
+node.data: true
+transport.tcp.port: 9300
+http.port: 9200
+index.number_of_replicas: 1
+index.number_of_shards: 5
+path.data: {{ es_path_data }}
+path.logs: {{ es_log_path }}
+network.host: {{ ansible_eth1.ipv4.address }}
+gateway.type: local

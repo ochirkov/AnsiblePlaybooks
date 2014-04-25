@@ -1,0 +1,4 @@
+es_conf_path: /etc/elasticsearch
+es_path_data: /var/lib/elasticsearch
+es_log_path: /var/log/elasticsearch
+local_yum_repo_path: /etc/yum.repos.d
