@@ -1,2 +1,3 @@
 [es_nodes]
-es_cluster
+es_cluster tcp_port=9300
+es_cluster2 tcp_port=9301

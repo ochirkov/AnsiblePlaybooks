@@ -2,7 +2,7 @@ cluster.name: avid_es_cluster
 node.name: "{{ ansible_fqdn }}"
 node.master: true
 node.data: true
-transport.tcp.port: 9300
+transport.tcp.port: {{ tcp_port }}
 http.port: 9200
 index.number_of_replicas: 1
 index.number_of_shards: 5
