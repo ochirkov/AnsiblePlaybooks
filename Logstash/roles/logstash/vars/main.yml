@@ -1,0 +1,6 @@
+tcp_port: 3333
+elastic_bind_port: 9301
+elastic_cluster: es_cluster
+logstash_conf_dir: /etc/logstash/conf.d
+repo_conf_path: /etc/yum.repos.d
+init_scripts_path: /etc/init.d

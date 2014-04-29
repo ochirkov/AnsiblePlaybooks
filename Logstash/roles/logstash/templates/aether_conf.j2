@@ -1,0 +1,13 @@
+input {
+  tcp {
+        port => {{ tcp_port }}
+        }
+}
+
+output {
+    elasticsearch {
+        bind_port => {{ elastic_bind_port }}
+        cluster => {{ elastic_cluster }}
+        host => "{{ ansible_eth1.ipv4.address }}"
+    }
+}
