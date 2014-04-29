@@ -12,7 +12,7 @@
     - logstash
 
 - name: Copy Logstash's avid conf
-  template: src=aether_conf.j2 dest={{ logstash_conf_dir }}/aether.conf owner=root group=root mode=0644
+  template: src=logstash_conf.j2 dest={{ logstash_conf_dir }}/logstash.conf owner=root group=root mode=0644
 
 - name: Restart Logstash
   service: name=logstash state=restarted
