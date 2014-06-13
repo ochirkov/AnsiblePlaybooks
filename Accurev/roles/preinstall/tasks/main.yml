@@ -1,0 +1,10 @@
+---
+
+- name: Install selinux tools
+  yum: name=libselinux-python state=present
+
+- name: Disable SElinux
+  template: src=selinux.j2 dest=/etc/selinux/config
+
+- name: Reboot macine
+  command: /sbin/reboot

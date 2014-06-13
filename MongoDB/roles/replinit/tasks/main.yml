@@ -1,0 +1,7 @@
+---
+
+- name: Copy replica init config
+  template: src=shards_conf.j2 dest=/tmp/shards.conf
+
+- name: Initialize the replication set
+  shell: /usr/bin/mongo localhost:{{ mongod_port }} /tmp/shards.conf

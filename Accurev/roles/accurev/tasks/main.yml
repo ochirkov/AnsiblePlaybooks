@@ -1,0 +1,15 @@
+---
+
+- name: Copy response config
+  template: src=response.j2 dest=/tmp/response.out
+
+- name: install the dependencies
+  yum: name={{ item }} state=present
+  with_items:
+    - java-1.7.0-openjdk.x86_64
+    - glibc.i686
+
+- name: Install Accurev
+  shell: "{{ accurev_binary_path }} -i silent -f /tmp/response.out"
+
+

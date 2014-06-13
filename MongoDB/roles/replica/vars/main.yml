@@ -1,0 +1,7 @@
+replica_port: 27017
+data_path: /data/
+rep_set_name: avid_cluster
+
+
+
+

@@ -1,0 +1,7 @@
+---
+
+  - hosts: netxms-agents
+    remote_user: ec2-user
+    sudo: True
+    roles:
+      - agent

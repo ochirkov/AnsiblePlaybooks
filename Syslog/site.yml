@@ -1,0 +1,6 @@
+---
+
+  - hosts: syslog-nodes
+    remote_user: root
+    roles:
+      - slave

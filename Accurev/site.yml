@@ -1,0 +1,11 @@
+---
+
+  - hosts: accurev-nodes
+    remote_user: root
+    roles:
+      - { role: preinstall, tags: ['preinstall'] }
+
+  - hosts: accurev-nodes
+    remote_user: root
+    roles:
+      - { role: accurev, tags: ['accurev'] }

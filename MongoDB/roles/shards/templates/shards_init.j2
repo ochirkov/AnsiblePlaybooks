@@ -1,0 +1,4 @@
+{% for host in groups['mongo-slaves'] %}
+sh.addShard("{{ rep_set_name }}/{{ host }}:{{ mongod_port }}")
+{% endfor %}
+printjson(rs.status())

@@ -1,0 +1,13 @@
+rs.initiate()
+sleep(13000)
+{% for host in groups['mongo-slaves'] %}
+rs.add("{{ host }}:{{ mongod_port }}")
+sleep(8000)
+{% endfor %}
+{% for host in groups['mongo-arbiter'] %}
+rs.addArb("{{ host }}:{{ mongod_port }}")
+sleep(8000)
+{% endfor %}
+printjson(rs.status())
+sleep(12000)
+printjson(rs.status())

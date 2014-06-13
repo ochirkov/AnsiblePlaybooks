@@ -1,0 +1,17 @@
+---
+
+- name: Install selinux tools
+  yum: name=libselinux-python state=present
+
+- name: Install package which provide repl for syslog
+  yum: name=rsyslog-relp.x86_64 state=present
+
+- name: Copy rsyslog config for avid master
+  template: src=10-avid-slave.j2 dest={{ syslog_conf_path }}/10-avid-slave.conf
+
+- name: Add selinux rules for syslog
+  command: /usr/sbin/semanage port -a -t syslogd_port_t -p tcp {{ tcp_port }}
+  ignore_errors: yes
+
+- name: Restart syslog
+  service: name=rsyslog state=restarted

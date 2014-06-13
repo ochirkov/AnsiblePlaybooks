@@ -1,0 +1,16 @@
+# mongo.node1.conf
+replSet = {{ rep_set_name }}
+
+logpath = /var/log/mongodb/mongod.log
+
+#bind_ip=127.0.0.1
+
+port = {{ replica_port }}
+
+logappend = true
+
+dbpath = {{ data_path }}configdb
+
+smallfiles = true
+
+fork = true

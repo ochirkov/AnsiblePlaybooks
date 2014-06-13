@@ -1,0 +1,6 @@
+mongod_port: 27017
+rep_set_name: avid_cluster
+
+
+
+

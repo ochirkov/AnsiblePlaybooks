@@ -1,0 +1,5 @@
+$ModLoad omrelp
+$ModLoad omtcp
+
+#Send all collected messages via tcp to logstash by {{ tcp_port }} port
+*.* @@{{ logstash_address }}:{{ tcp_port }}

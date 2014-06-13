@@ -1,0 +1,7 @@
+---
+
+- name: Copy shards init config
+  template: src=shards_init.j2 dest=/tmp/shards_init.conf
+
+- name: Set shards
+  shell: /usr/bin/mongo localhost:{{ mongos_port }} /tmp/shards_init.conf

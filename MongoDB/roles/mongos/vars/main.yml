@@ -1,0 +1,6 @@
+mongos_port: 27017
+mongoc_port: 27019
+data_path: /data/
+
+
+

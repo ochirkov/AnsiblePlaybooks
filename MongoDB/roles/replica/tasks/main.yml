@@ -1,0 +1,10 @@
+---
+
+- name: Create replica config
+  template: src=mongo_replica.conf.j2 dest=/etc/mongod.conf
+
+- name: Create data dir
+  file: path={{ data_path }}configdb state=directory recurse=yes owner=mongod group=mongod mode=0755
+
+- name: Start mongod
+  service: name=mongod state=started

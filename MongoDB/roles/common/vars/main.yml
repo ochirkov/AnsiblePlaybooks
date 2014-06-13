@@ -1,0 +1,7 @@
+yum_repo_dir: /etc/yum.repos.d
+source_dir: /usr/local/src
+
+
+
+
+

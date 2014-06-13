@@ -1,0 +1,7 @@
+netxms_work_dir: /opt
+netxms_conf_dir: /etc/netxms.d
+netxms_log_path: /var/log/nxagentd.log
+netxms_cache_path: /var/cache/netxms
+netxms_master_ip: 54.200.28.212
+netxms_agent_port: 4700
+netxms_source_dir: /opt/netxms-1.2.14

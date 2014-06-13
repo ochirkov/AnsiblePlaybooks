@@ -1,0 +1,32 @@
+---
+
+- name: Copy NetXMS tarball
+  command: /usr/bin/wget -O {{ netxms_work_dir }}/netxms-1.2.14.tar.gz http://www.netxms.org/download/netxms-1.2.14.tar.gz
+
+- name: Execute tar
+  command: /bin/tar -zxvf {{ netxms_work_dir }}/netxms-1.2.14.tar.gz -C {{ netxms_work_dir }}
+
+- name: Install Development tools
+  yum: name="@Development tools" state=present
+
+- name: Install NetXMS agent
+  shell: 'cd {{ netxms_source_dir }};{{ item }}'
+  with_items:
+    - ./configure --with-agent --prefix=/opt/netxms
+    - make
+    - make install
+
+- name: Make conf dir
+  file: path={{ item }} state=directory
+  with_items:
+    - $netxms_conf_dir
+    - $netxms_cache_path
+
+- name: Copy agent config
+  template: src=netxms_agent_conf.j2 dest={{ netxms_conf_dir }}/nxagentd.conf
+
+- name: Start agent
+  command: /opt/netxms/bin/nxagentd -c {{ netxms_conf_dir }}/nxagentd.conf -d
+
+
+

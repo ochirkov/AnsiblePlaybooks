@@ -1,0 +1,14 @@
+---
+
+- name: Create data dir
+  file: path={{ data_path }}/configdb state=directory recurse=yes owner=mongod group=mongod mode=0755
+
+- name: Create the mongo configuration server startup file
+  template: src=mongoc.j2 dest=/etc/init.d/mongod mode=0655
+
+- name: Create the mongo configuration server file
+  template: src=mongoc.conf.j2 dest=/etc/mongoc.conf
+
+- name: Start configs
+  service: name=mongod state=restarted
+

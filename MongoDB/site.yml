@@ -1,0 +1,38 @@
+---
+
+  - hosts: mongo-nodes
+    remote_user: root
+    roles:
+      - { role: preinstall, tags: ['preinstall'] }
+
+  - hosts: mongo-nodes
+    remote_user: root
+    roles:
+      - { role: common, tags: ['common'] }
+
+  - hosts: mongo-configs
+    remote_user: root
+    roles:
+      - { role: configs, tags: ['configs'] }
+
+  - hosts: mongo-routers
+    remote_user: root
+    roles:
+      - { role: mongos, tags: ['mongos'] }
+
+  - hosts: mongo-replica
+    remote_user: root
+    roles:
+      - { role: replica, tags: ['replica'] }
+
+  - hosts: mongo-primary
+    remote_user: root
+    roles:
+      - { role: replinit, tags: ['replinit'] }
+
+  - hosts: mongo-primary-config
+    remote_user: root
+    roles:
+      - { role: shards, tags: ['shards'] }
+
+

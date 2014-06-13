@@ -1,0 +1,13 @@
+---
+
+- name: Create the mongos startup file
+  template: src=mongos.j2 dest=/etc/init.d/mongod mode=0655
+
+- name: Create the mongos configuration file
+  template: src=mongos.conf.j2 dest=/etc/mongos.conf
+
+- name: Create db dir
+  file: path={{ data_path }}/configdb state=directory recurse=yes owner=mongod group=mongod mode=0755
+
+- name: Start the mongos service
+  service: name=mongod state=started

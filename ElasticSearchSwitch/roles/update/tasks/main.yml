@@ -1,0 +1,28 @@
+---
+
+- name: Copy local init script
+  template: src={{ item.src}} dest={{ es_init_dir }}/{{ item.dest }} mode=755
+  with_items:
+    - { src: 'elasticsearch_global.j2', dest: 'elasticsearch_global' }
+    - { src: 'elasticsearch_local.j2', dest: 'elasticsearch_local' }
+  tags:
+    - init
+
+- name: Stop es
+  service: name={{ item }} state=stopped
+  with_items:
+    - elasticsearch_local
+    - elasticsearch_global
+  tags:
+    - stop
+
+- name: Start local es
+  service: name=elasticsearch_local state=started
+  tags:
+    - start_local
+
+- name: Start global es
+  service: name=elasticsearch_global state=started
+  tags:
+    - start_global
+

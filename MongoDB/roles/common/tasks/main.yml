@@ -1,0 +1,25 @@
+---
+
+- name: Install SElinux tools
+  yum: name={{ item }} state=present
+  with_items:
+    - libselinux-python
+    - policycoreutils-python
+
+- name: Add mongo repo
+  template: src=mongo_repo.j2 dest={{ yum_repo_dir }}/mongodb.repo
+
+- name: Add SElinux rules
+  command: /usr/sbin/semanage port -a -t mongod_port_t -p tcp {{ item }}
+  with_items:
+    - 27017
+    - 27019
+  ignore_errors: yes
+
+- name: Install mongod
+  yum: name=mongodb-org state=present
+
+- name: Add mongod to auto up
+  command: /sbin/chkconfig mongod on
+
+
